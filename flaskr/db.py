@@ -1,8 +1,5 @@
 import sqlite3
 
-from flask import current_app
-from flask import g
-
 DATABASE = 'flaskr\\book_db.db'
 
 

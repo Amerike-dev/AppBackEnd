@@ -1,0 +1,5 @@
+# Framework
+*.idea
+
+# Python Cache
+*__pycache__

@@ -9,11 +9,14 @@ from . import db
 
 def create_app(test_config=None):
 
-    app = Flask(__name__, instance_relative_config=True)
+    app = Flask(__name__)
+    env_config = os.getenv("APP_SETTINGS", "config.DevelopmentConfig")
+    app.config.from_object(env_config)
 
     @app.route('/')
     def hello():
-        return 'Hello world'
+        secret_key = app.config.get("SECRET_KEY")
+        return f'Hello world: {secret_key}'
 
     @app.route('/db')
     def db_tables():

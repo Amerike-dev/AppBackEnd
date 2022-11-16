@@ -1,6 +1,6 @@
 import sqlite3
 
-DATABASE = 'flaskr\\book_db.db'
+DATABASE = 'flaskr\\AmerikeDB.db'
 
 
 def get_names():
@@ -14,6 +14,18 @@ def get_names():
     if names is None:
         return '{"result": "Empty Result}'
     return names
+
+def get_assets():
+    conn = sqlite3.connect(DATABASE)
+    cursor = conn.cursor()
+
+    query = "SELECT * FROM Timetable"
+    cur = cursor.execute((query))
+    response = query_db(cur, one=True)
+
+    if response is None:
+        return '{"result": "Empty Result}'
+    return response
 
 
 def query_db(cursor, one=False):

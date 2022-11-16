@@ -21,4 +21,10 @@ def create_app(test_config=None):
         response = json.dumps(names)
         return jsonify(response)
 
+    @app.route('/api/v1/assets')
+    def get_assets():
+        assets = db.get_assets()
+        response = json.dumps(assets)
+        return jsonify(response)
+
     return app

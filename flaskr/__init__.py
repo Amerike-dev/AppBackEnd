@@ -40,5 +40,9 @@ def create_app(test_config=None):
     def calendar():
         response = {"test": "foo"}
         return response
+
+    @app.route('/api/post/test')
+    def post_test():
+        return "Post Method test"
     
     return app

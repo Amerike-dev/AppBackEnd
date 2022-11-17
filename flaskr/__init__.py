@@ -35,4 +35,9 @@ def create_app(test_config=None):
         response = {"test": "foo"}
         return response
 
+    @app.route('/api/v1/calendar')
+    def calendar():
+        response = {"test": "foo"}
+        return response
+    
     return app

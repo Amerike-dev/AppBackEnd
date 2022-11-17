@@ -21,4 +21,14 @@ def create_app(test_config=None):
         response = json.dumps(names)
         return jsonify(response)
 
+    @app.route('/banyo')
+    def banyo():
+        return 'Banyo God'
+
+    @app.route('/leinaddh')
+    def leinad():
+        return 'leinad Was Here'
+
     return app
+
+    

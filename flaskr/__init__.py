@@ -5,6 +5,7 @@ from flask import Flask
 from flask import jsonify
 
 from . import db
+from . import auth_user
 
 
 def create_app(test_config=None):
@@ -31,8 +32,8 @@ def create_app(test_config=None):
         return jsonify(response)
 
     @app.route('/api/v1/auth/user')
-    def auth_user():
-        response = {"test": "foo"}
+    def auth():
+        response = auth_user.validate()
         return response
 
     @app.route('/api/v1/calendar')

@@ -30,4 +30,9 @@ def create_app(test_config=None):
         response = json.dumps(assets)
         return jsonify(response)
 
+    @app.route('/api/v1/auth/user')
+    def auth_user():
+        response = {"test": "foo"}
+        return response
+
     return app

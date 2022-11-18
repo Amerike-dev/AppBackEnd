@@ -3,8 +3,10 @@ import json
 
 from flask import Flask
 from flask import jsonify
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import create_engine
 
-from . import db
+from . import datatest
 from . import auth_user
 
 
@@ -13,6 +15,8 @@ def create_app(test_config=None):
     app = Flask(__name__)
     env_config = os.getenv("APP_SETTINGS", "config.DevelopmentConfig")
     app.config.from_object(env_config)
+    engine = create_engine(os.environ['DATABASE_URL'])
+
 
     @app.route('/')
     def hello():
@@ -21,13 +25,13 @@ def create_app(test_config=None):
 
     @app.route('/db')
     def db_tables():
-        names = db.get_names()
+        names = datatest.get_names()
         response = json.dumps(names)
         return jsonify(response)
 
     @app.route('/api/v1/assets')
     def get_assets():
-        assets = db.get_assets()
+        assets = datatest.get_assets()
         response = json.dumps(assets)
         return jsonify(response)
 
@@ -44,5 +48,14 @@ def create_app(test_config=None):
     @app.route('/api/post/test')
     def post_test():
         return "Post Method test"
-    
+
+    @app.route('/api/db/career')
+    def get_career():
+        result = {'result':[]}
+        with engine.connect() as connection:
+            r = connection.execute("SELECT * FROM amerike.assets")
+            for row in r:
+                result['result'].append(row._asdict())
+        return result
+
     return app
